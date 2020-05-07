@@ -35,7 +35,10 @@ class Man10Authentication : Plugin() ,Listener{
 
         if (BungeePermsAPI.userInGroup(p.uniqueId.toString(),groupName))return
 
-        showAuthenticationMsg(p)
+        proxy.scheduler.runAsync(this) {
+            Thread.sleep(100000)
+            showAuthenticationMsg(p)
+        }
     }
 
     @EventHandler
@@ -53,11 +56,11 @@ class Man10Authentication : Plugin() ,Listener{
         }
 
         addGroup(p)
-
+        e.isCancelled = true
     }
 
     fun showAuthenticationMsg(p:ProxiedPlayer){
-        val code = String.format("%06d", Random().nextInt(1000000))
+        val code = String.format("%06d", Random().nextInt(100000))
 
         codeMap[p] = code
 
@@ -66,9 +69,9 @@ class Man10Authentication : Plugin() ,Listener{
         text.color = ChatColor.GREEN
         text.isUnderlined = true
         val textEn = TextComponent("Type on chat 6 digit code displayed below.")
-        text.isBold = true
-        text.isUnderlined = true
-        text.color = ChatColor.BLUE
+        textEn.isBold = true
+        textEn.isUnderlined = true
+        textEn.color = ChatColor.BLUE
 
         val codeText = TextComponent(code)
         codeText.isBold = true
@@ -96,9 +99,9 @@ class Man10Authentication : Plugin() ,Listener{
         text.color = ChatColor.GREEN
 
         val textEn = TextComponent("Authentication Success!")
-        text.isBold = true
-        text.isUnderlined = true
-        text.color = ChatColor.GREEN
+        textEn.isBold = true
+        textEn.isUnderlined = true
+        textEn.color = ChatColor.GREEN
 
         p.sendMessage(text)
         p.sendMessage(textEn)

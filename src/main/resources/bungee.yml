@@ -1,3 +1,5 @@
 name: Man10Authentication
 version: 1.0
 main: red.man10.man10authentication.Man10Authentication
+softdepends:
+  - Man10CommonLibs
